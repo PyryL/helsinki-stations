@@ -3,7 +3,7 @@ import L from 'leaflet'
 import { lines } from './data/lines'
 import { stations } from './data/stations'
 
-const Map = () => {
+const Map = ({ revealedStations }) => {
   const mapOptions = {
     center: [60.1986580, 24.9334287],
     zoom: 12,
@@ -31,7 +31,7 @@ const Map = () => {
 
       {stations.map((station, index) =>
         <Marker position={[station.lat, station.lon]} icon={markerIcon} key={index}>
-          <Tooltip permanent direction='bottom'>{station.name}</Tooltip>
+          {revealedStations.includes(station.name) && <Tooltip permanent direction='bottom'>{station.name}</Tooltip>}
         </Marker>
       )}
 
