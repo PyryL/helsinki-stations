@@ -1,6 +1,7 @@
 import { MapContainer, Marker, Polyline, TileLayer } from 'react-leaflet'
 import L from 'leaflet'
-import { stations, lines } from './data'
+import { lines } from './data/lines'
+import { stations } from './data/stations'
 
 const App = () => {
   const mapOptions = {
