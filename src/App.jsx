@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Map from './Map'
 import { stations } from './data/stations'
 
@@ -19,15 +19,20 @@ const App = () => {
     }
   }
 
+  useEffect(() => {
+    document.querySelector('.guess-input').focus()
+  }, [])
+
   return (
-    <div>
+    <div className='map-wrapper'>
+      <Map revealedStations={revealedStations} />
       <input
-        type='text' autoCapitalize='off' autoCorrect='off' autoComplete='off'
+        className='guess-input'
+        type='text' autoCapitalize='off' autoCorrect='off' autoComplete='off' maxLength={30}
         value={inputText} onChange={e => setInputText(e.target.value)}
         onKeyUp={keyPressed}
-        style={{ marginBottom: 10 }}
+        placeholder='Kirjoita aseman nimi...'
       />
-      <Map revealedStations={revealedStations} />
     </div>
   )
 }

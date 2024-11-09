@@ -22,7 +22,7 @@ const Map = ({ revealedStations }) => {
   }
 
   return (
-    <MapContainer {...mapOptions} style={{ height: '500px' }}>
+    <MapContainer {...mapOptions} style={{ width: '100%', height: '100%' }}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
