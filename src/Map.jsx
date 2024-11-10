@@ -24,22 +24,24 @@ const Map = ({ revealedStations }) => {
 
   const showMap = stations.every(station => revealedStations.some(revealed => station.name === revealed))
 
+  const osmAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+
   return (
     <MapContainer {...mapOptions} style={{ width: '100%', height: '100%', backgroundColor: '#2c2c2d' }}>
       {showMap && <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution={osmAttribution}
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         opacity={0.7}
       />}
 
       {stations.map((station, index) =>
-        <Marker position={[station.lat, station.lon]} icon={markerIcon} key={index}>
+        <Marker position={[station.lat, station.lon]} icon={markerIcon} attribution={osmAttribution} key={index}>
           {revealedStations.includes(station.name) && <Tooltip permanent direction='bottom' className='map-tooltip'>{station.name}</Tooltip>}
         </Marker>
       )}
 
       {lines.map((linePoints, index) =>
-        <Polyline pathOptions={pathOptions} positions={linePoints} key={index} />
+        <Polyline pathOptions={pathOptions} positions={linePoints} attribution={osmAttribution} key={index} />
       )}
     </MapContainer>
   )
