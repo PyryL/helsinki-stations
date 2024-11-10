@@ -25,9 +25,17 @@ area["name"="Kauniainen"]->.kauniainen;
 
 (.helsinki; .espoo; .vantaa; .kauniainen;)->.searchArea;
 
-relation["route"="train"]["network"="HSL"](area.searchArea);
-(._; way(r)["railway"="rail"];);
-(._; node(w)(area.searchArea););
+(
+  relation["route"="train"]["network"="HSL"](area.searchArea);
+  relation["route"="subway"]["network"="HSL"](area.searchArea);
+)->.relations;
+
+(
+  way(r.relations)["railway"="rail"];
+  way(r.relations)["railway"="subway"];
+)->.ways;
+
+(.relations; .ways; node(w.ways)(area.searchArea););
 
 out;
 `
@@ -92,19 +100,23 @@ area["name"="Kauniainen"]->.kauniainen;
 
 (.helsinki; .espoo; .vantaa; .kauniainen;)->.searchArea;
 
-node["railway"="station"]["station"!="subway"]["station"!="light_rail"]["name"!~"autojuna"](area.searchArea);
+node["railway"="station"]["station"!="light_rail"](area.searchArea);
 
 out;
 `
 
 const handleStationData = data => {
-  
-  const result = data.elements.map(node => {
-    return {
+
+  const result = data.elements.flatMap(node => {
+    if (node.tags.name.toLowerCase().includes('autojuna')) {
+      return []
+    }
+    return [{
       lat: node.lat,
       lon: node.lon,
       name: node.tags.name,
-    }
+      type: node.tags.station === 'subway' ? 'metro' : 'train',
+    }]
   })
 
   const dataFile = dataFileCopyrightComment + 'export const stations = ' + JSON.stringify(result) + '\n'
