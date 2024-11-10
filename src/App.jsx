@@ -14,8 +14,18 @@ const App = () => {
     const correctStation = stations.find(station => station.name.toLowerCase() === inputText.trim().toLowerCase())
 
     if (correctStation !== undefined) {
-      setRevealedStations(oldValue => oldValue.concat(correctStation.name))
+      setRevealedStations(oldValue => {
+        if (oldValue.includes(correctStation.name)) {
+          return oldValue
+        }
+        return oldValue.concat(correctStation.name)
+      })
       setInputText('')
+    } else {
+      if (!document.querySelector('.guess-input').classList.contains('incorrect')) {
+        document.querySelector('.guess-input').classList.add('incorrect')
+        setTimeout(() => document.querySelector('.guess-input').classList.remove('incorrect'), 200)
+      }
     }
   }
 

@@ -28,9 +28,14 @@ body {
   z-index: 1001;
   border: 1.5pt solid black;
   border-radius: 15pt;
+  transition: background-color .1s;
 }
 
 .guess-input:focus {
   outline: none;
   box-shadow: 0 0 5pt inset gray;
+}
+
+.guess-input.incorrect {
+  background-color: #f47c7e;
 }

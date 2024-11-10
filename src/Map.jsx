@@ -22,13 +22,15 @@ const Map = ({ revealedStations }) => {
     weight: 2,
   }
 
+  const showMap = stations.every(station => revealedStations.some(revealed => station.name === revealed))
+
   return (
     <MapContainer {...mapOptions} style={{ width: '100%', height: '100%', backgroundColor: '#ededed' }}>
-      <TileLayer
+      {showMap && <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         opacity={0.7}
-      />
+      />}
 
       {stations.map((station, index) =>
         <Marker position={[station.lat, station.lon]} icon={markerIcon} key={index}>
