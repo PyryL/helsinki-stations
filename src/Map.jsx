@@ -12,20 +12,20 @@ const Map = ({ revealedStations }) => {
   }
 
   const markerIcon = L.icon({
-    iconUrl: 'unknown.png',
-    iconSize: [20, 20],
-    iconAnchor: [10, 10],
+    iconUrl: 'station.png',
+    iconSize: [40, 40],
+    iconAnchor: [20, 20],
   })
 
   const pathOptions = {
-    color: '#8c4799',
+    color: '#e3e4ea',
     weight: 2,
   }
 
   const showMap = stations.every(station => revealedStations.some(revealed => station.name === revealed))
 
   return (
-    <MapContainer {...mapOptions} style={{ width: '100%', height: '100%', backgroundColor: '#ededed' }}>
+    <MapContainer {...mapOptions} style={{ width: '100%', height: '100%', backgroundColor: '#2c2c2d' }}>
       {showMap && <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -34,7 +34,7 @@ const Map = ({ revealedStations }) => {
 
       {stations.map((station, index) =>
         <Marker position={[station.lat, station.lon]} icon={markerIcon} key={index}>
-          {revealedStations.includes(station.name) && <Tooltip permanent direction='bottom'>{station.name}</Tooltip>}
+          {revealedStations.includes(station.name) && <Tooltip permanent direction='bottom' className='map-tooltip'>{station.name}</Tooltip>}
         </Marker>
       )}
 
