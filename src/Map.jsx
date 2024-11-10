@@ -2,8 +2,11 @@ import { MapContainer, Marker, Polyline, TileLayer, Tooltip } from 'react-leafle
 import L from 'leaflet'
 import { lines } from './data/lines'
 import { stations } from './data/stations'
+import { useRevealedStations } from './revealedStations'
 
-const Map = ({ revealedStations }) => {
+const Map = () => {
+  const { revealedStations } = useRevealedStations()
+
   const mapOptions = {
     center: [60.1986580, 24.9334287],
     zoom: 12,

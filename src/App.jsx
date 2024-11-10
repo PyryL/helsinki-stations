@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import Map from './Map'
 import { stations } from './data/stations'
+import { useRevealedStations } from './revealedStations'
 
 const App = () => {
-  const [revealedStations, setRevealedStations] = useState([])
+  const { revealedStations, revealStation } = useRevealedStations()
   const [inputText, setInputText] = useState('')
 
   const keyPressed = event => {
@@ -14,12 +15,7 @@ const App = () => {
     const correctStation = stations.find(station => station.name.toLowerCase() === inputText.trim().toLowerCase())
 
     if (correctStation !== undefined) {
-      setRevealedStations(oldValue => {
-        if (oldValue.includes(correctStation.name)) {
-          return oldValue
-        }
-        return oldValue.concat(correctStation.name)
-      })
+      revealStation(correctStation.name)
       setInputText('')
     } else {
       if (!document.querySelector('.guess-input').classList.contains('incorrect')) {
@@ -35,7 +31,7 @@ const App = () => {
 
   return (
     <div className='map-wrapper'>
-      <Map revealedStations={revealedStations} />
+      <Map />
       <input
         className='guess-input'
         type='text' autoCapitalize='off' autoCorrect='off' autoComplete='off' maxLength={30}
