@@ -41,7 +41,7 @@ const App = () => {
       />
       <div className='progress-pane'>
         <button onClick={resetRevealedStations}>Reset</button>
-        {revealedStations.length}/{stations.length}
+        <span>{revealedStations.length}/{stations.length}</span>
       </div>
     </div>
   )
