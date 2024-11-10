@@ -43,6 +43,9 @@ const App = () => {
         onKeyUp={keyPressed}
         placeholder='Kirjoita aseman nimi...'
       />
+      <div className='progress-pane'>
+        {revealedStations.length}/{stations.length}
+      </div>
     </div>
   )
 }

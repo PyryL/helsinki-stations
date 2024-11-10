@@ -40,6 +40,20 @@ body {
   background-color: #f47c7e;
 }
 
+.progress-pane {
+  height: 30pt;
+  position: absolute;
+  top: 20pt;
+  right: 20pt;
+  background-color: white;
+  padding: 5pt;
+  box-sizing: border-box;
+  line-height: 20pt;
+  border-radius: 5pt;
+  border: 1.5pt solid black;
+  z-index: 1001;
+}
+
 .map-tooltip {
   /* undo the default style */
   background: none;
