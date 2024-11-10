@@ -49,9 +49,23 @@ body {
   padding: 5pt;
   box-sizing: border-box;
   line-height: 20pt;
-  border-radius: 5pt;
+  border-radius: 15pt;
   border: 1.5pt solid black;
   z-index: 1001;
+}
+
+.progress-pane button {
+    background: none;
+    border: none;
+    padding: 2pt 5pt;
+    margin-right: 5pt;
+    border-radius: 3pt;
+    transition: background-color .1s;
+    cursor: pointer;
+}
+
+.progress-pane button:hover {
+    background-color: lightgray;
 }
 
 .map-tooltip {

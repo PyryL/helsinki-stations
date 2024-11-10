@@ -14,6 +14,10 @@ export const RevealedStationsProvider = ({ children }) => {
     })
   }
 
+  const reset = () => {
+    setStations([])
+  }
+
   useEffect(() => {
     const savedData = localStorage.getItem('revealedStations')
     if (savedData !== null) {
@@ -32,6 +36,7 @@ export const RevealedStationsProvider = ({ children }) => {
   const providedMethods = {
     revealedStations: stations,
     revealStation,
+    reset,
   }
 
   return (

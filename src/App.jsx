@@ -4,7 +4,7 @@ import { stations } from './data/stations'
 import { useRevealedStations } from './revealedStations'
 
 const App = () => {
-  const { revealedStations, revealStation } = useRevealedStations()
+  const { revealedStations, revealStation, reset: resetRevealedStations } = useRevealedStations()
   const [inputText, setInputText] = useState('')
 
   const keyPressed = event => {
@@ -40,6 +40,7 @@ const App = () => {
         placeholder='Kirjoita aseman nimi...'
       />
       <div className='progress-pane'>
+        <button onClick={resetRevealedStations}>Reset</button>
         {revealedStations.length}/{stations.length}
       </div>
     </div>
