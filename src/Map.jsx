@@ -4,6 +4,21 @@ import { lines } from './data/lines'
 import { stations } from './data/stations'
 import { useRevealedStations } from './revealedStations'
 
+const findBounds = () => {
+  const minLat = Math.min(...stations.map(station => station.lat))
+  const maxLat = Math.max(...stations.map(station => station.lat))
+  const minLon = Math.min(...stations.map(station => station.lon))
+  const maxLon = Math.max(...stations.map(station => station.lon))
+
+  const latPadding = (maxLat - minLat) / 2
+  const lonPadding = (maxLon - minLon) / 2
+
+  return [
+    [minLat-latPadding, minLon-lonPadding],
+    [maxLat+latPadding, maxLon+lonPadding],
+  ]
+}
+
 const Map = () => {
   const { revealedStations } = useRevealedStations()
 
@@ -12,6 +27,7 @@ const Map = () => {
     zoom: 12,
     maxZoom: 15,
     minZoom: 10,
+    maxBounds: findBounds(),
   }
 
   const markerIcon = stationType => L.icon({
