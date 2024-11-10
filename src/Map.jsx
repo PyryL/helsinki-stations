@@ -18,15 +18,16 @@ const Map = ({ revealedStations }) => {
   })
 
   const pathOptions = {
-    color: '#ff0000',
+    color: '#8c4799',
+    weight: 2,
   }
 
   return (
-    <MapContainer {...mapOptions} style={{ width: '100%', height: '100%' }}>
+    <MapContainer {...mapOptions} style={{ width: '100%', height: '100%', backgroundColor: '#ededed' }}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-        opacity={0.4}
+        opacity={0.7}
       />
 
       {stations.map((station, index) =>
