@@ -32,16 +32,18 @@ const App = () => {
   return (
     <div className='map-wrapper'>
       <Map />
-      <input
-        className='guess-input'
-        type='text' autoCapitalize='off' autoCorrect='off' autoComplete='off' maxLength={30}
-        value={inputText} onChange={e => setInputText(e.target.value)}
-        onKeyUp={keyPressed}
-        placeholder='Kirjoita aseman nimi...'
-      />
-      <div className='progress-pane'>
-        <button onClick={resetRevealedStations}>Reset</button>
-        <span>{revealedStations.length}/{stations.length}</span>
+      <div className='map-overlay'>
+        <input
+          className='guess-input'
+          type='text' autoCapitalize='off' autoCorrect='off' autoComplete='off' maxLength={30}
+          value={inputText} onChange={e => setInputText(e.target.value)}
+          onKeyUp={keyPressed}
+          placeholder='Kirjoita aseman nimi...'
+        />
+        <div className='progress-pane'>
+          <button onClick={resetRevealedStations}>Reset</button>
+          <span>{revealedStations.length}/{stations.length}</span>
+        </div>
       </div>
     </div>
   )

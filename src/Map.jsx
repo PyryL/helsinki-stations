@@ -28,6 +28,7 @@ const Map = () => {
     maxZoom: 15,
     minZoom: 10,
     maxBounds: findBounds(),
+    zoomControl: false,
   }
 
   const markerIcon = stationType => L.icon({
