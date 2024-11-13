@@ -1,8 +1,13 @@
 {
-  "name": "hsl-station-game",
+  "name": "helsinki-stations",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": {
+    "name": "Pyry Lahtinen",
+    "email": "pyry@pyry.info",
+    "url": "https://pyry.info/"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
