@@ -41,8 +41,8 @@ const App = () => {
           placeholder='Kirjoita aseman nimi...'
         />
         <div className='progress-pane'>
-          <button onClick={resetRevealedStations}>Reset</button>
-          <span>{revealedStations.length}/{stations.length}</span>
+          <button onClick={resetRevealedStations}>Tyhjennä</button>
+          <span className='score-label'>{revealedStations.length}/{stations.length}</span>
         </div>
       </div>
     </div>

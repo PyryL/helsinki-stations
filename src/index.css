@@ -68,30 +68,40 @@ body {
 .progress-pane {
   width: fit-content;
   height: 30pt;
-  background-color: white;
-  padding: 5pt;
+  padding: 5pt 10pt;
   margin-left: auto;
   margin-top: 10pt;
   box-sizing: border-box;
-  line-height: 20pt;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  column-gap: 5pt;
+
+  background-color: white;
   border-radius: 15pt;
   border: 1.5pt solid black;
   font-size: 10pt;
 }
 
 .progress-pane button {
-    background: none;
-    border: none;
-    padding: 2pt 5pt;
-    margin-right: 5pt;
-    border-radius: 3pt;
-    transition: background-color .1s;
-    cursor: pointer;
-    font-size: inherit;
+  background: none;
+  border: none;
+  box-shadow: 0 0 0 1pt inset lightgray;
+  padding: 2pt 5pt;
+  border-radius: 3pt;
+  transition: background-color .1s;
+  cursor: pointer;
+  font-size: inherit;
 }
 
 .progress-pane button:hover {
-    background-color: lightgray;
+  background-color: lightgray;
+}
+
+.score-label {
+  letter-spacing: 0.3pt;
 }
 
 .map-tooltip {
