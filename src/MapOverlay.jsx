@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { stations } from './data/stations'
 import { useRevealedStations } from './revealedStations'
 
+const correctSound = new Audio('correct.mp3')
+
 const MapOverlay = () => {
   const { revealedStations, revealStation, reset: resetRevealedStations } = useRevealedStations()
   const [inputText, setInputText] = useState('')
@@ -16,6 +18,7 @@ const MapOverlay = () => {
     if (correctStation !== undefined) {
       revealStation(correctStation.name)
       setInputText('')
+      correctSound.play()
     } else {
       if (!document.querySelector('.guess-input').classList.contains('incorrect')) {
         document.querySelector('.guess-input').classList.add('incorrect')
