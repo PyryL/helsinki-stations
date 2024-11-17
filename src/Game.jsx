@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Map from './Map'
 import MapOverlay from './MapOverlay'
+const dataFiles = import.meta.glob('./data/*.js')
 
 const Game = ({ gameMode }) => {
   const [lines, setLines] = useState(null)
@@ -9,7 +10,7 @@ const Game = ({ gameMode }) => {
   const loadData = (filePath, varName, setterFunction) => {
     (async () => {
       try {
-        const data = await import(filePath)
+        const data = await dataFiles[filePath]()
         setterFunction(data[varName])
       } catch (error) {
         console.error(error)
@@ -19,11 +20,11 @@ const Game = ({ gameMode }) => {
 
   useEffect(() => {
     if (gameMode === 'train') {
-      loadData('./data/lines', 'lines', setLines)
-      loadData('./data/stations', 'stations', setStations)
+      loadData('./data/lines.js', 'lines', setLines)
+      loadData('./data/stations.js', 'stations', setStations)
     } else {
-      loadData('./data/tram-lines', 'lines', setLines)
-      loadData('./data/tram-stops', 'stations', setStations)
+      loadData('./data/tram-lines.js', 'lines', setLines)
+      loadData('./data/tram-stops.js', 'stations', setStations)
     }
   }, [gameMode])
 
