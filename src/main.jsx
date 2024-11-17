@@ -16,6 +16,10 @@ const router = createBrowserRouter([
     path: '/junat',
     element: <Game gameMode='train' />,
   },
+  {
+    path: '/ratikat',
+    element: <Game gameMode='tram' />,
+  },
 ])
 
 createRoot(document.getElementById('root')).render(

@@ -6,23 +6,25 @@ const Game = ({ gameMode }) => {
   const [lines, setLines] = useState(null)
   const [stations, setStations] = useState(null)
 
-  useEffect(() => {
+  const loadData = (filePath, varName, setterFunction) => {
     (async () => {
       try {
-        const { lines: loadedLines } = await import('./data/lines')
-        setLines(loadedLines)
-      } catch (error) {
-        console.error(error)
-      }
-    })();
-    (async () => {
-      try {
-        const { stations: loadedStations } = await import('./data/stations')
-        setStations(loadedStations)
+        const data = await import(filePath)
+        setterFunction(data[varName])
       } catch (error) {
         console.error(error)
       }
     })()
+  }
+
+  useEffect(() => {
+    if (gameMode === 'train') {
+      loadData('./data/lines', 'lines', setLines)
+      loadData('./data/stations', 'stations', setStations)
+    } else {
+      loadData('./data/tram-lines', 'lines', setLines)
+      loadData('./data/tram-stops', 'stations', setStations)
+    }
   }, [gameMode])
 
   if (lines === null || stations === null) {
