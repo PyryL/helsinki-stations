@@ -1,19 +1,4 @@
-import { writeFileSync, mkdirSync } from 'node:fs'
-
-// This script is used to download and parse the data
-// stored in src/data directory.
-// Since the OSM data may change at any time,
-// manual checking of the output files is needed.
-
-const dataFileCopyrightComment = `/**
- * Data copyright (c) OpenStreetMap contributors
- * Open Database License
- * https://www.openstreetmap.org/copyright
- * 
- * Downloaded on ${new Date().toISOString()}
- */
-
-`
+import { fetchData, saveData } from './utils.js'
 
 const lineQuery = `
 [out:json];
@@ -39,15 +24,6 @@ area["name"="Kauniainen"]->.kauniainen;
 
 out;
 `
-
-const fetchData = async query => {
-  const result = await fetch('https://overpass-api.de/api/interpreter', {
-    method: 'POST',
-    body: `data=${encodeURIComponent(query)}`,
-  })
-
-  return await result.json()
-}
 
 const handleLineData = data => {
   
@@ -85,9 +61,7 @@ const handleLineData = data => {
     return waysOfRelation.filter(way => way.length > 0)
   })
 
-  const dataFile = dataFileCopyrightComment + 'export const lines = ' + JSON.stringify(polylines) + '\n'
-
-  writeFileSync('src/data/lines.js', dataFile, { encoding: 'utf-8' })
+  saveData(polylines, 'lines', 'lines')
 }
 
 const stationQuery = `
@@ -119,10 +93,8 @@ const handleStationData = data => {
     }]
   })
 
-  const dataFile = dataFileCopyrightComment + 'export const stations = ' + JSON.stringify(result) + '\n'
-  writeFileSync('src/data/stations.js', dataFile, { encoding: 'utf-8' })
+  saveData(result, 'stations', 'stations')
 }
 
-mkdirSync('src/data', { recursive: true })
 fetchData(lineQuery).then(data => handleLineData(data))
 fetchData(stationQuery).then(data => handleStationData(data))
