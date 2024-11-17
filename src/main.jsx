@@ -14,7 +14,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/junat',
-    element: <Game />,
+    element: <Game gameMode='train' />,
   },
 ])
 

@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
-import { stations } from './data/stations'
 import { useRevealedStations } from './revealedStations'
 import { useNavigate } from 'react-router-dom'
 
 const correctSound = new Audio('correct.mp3')
 
-const MapOverlay = () => {
+const MapOverlay = ({ stations }) => {
   const { revealedStations, revealStation, reset: resetRevealedStations } = useRevealedStations()
   const [inputText, setInputText] = useState('')
   const navigate = useNavigate()
