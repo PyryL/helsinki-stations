@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
-import { stations } from './data/stations'
 import { useRevealedStations } from './revealedStations'
+import { useNavigate } from 'react-router-dom'
 
 const correctSound = new Audio('correct.mp3')
 
-const MapOverlay = () => {
+const MapOverlay = ({ stations }) => {
   const { revealedStations, revealStation, reset: resetRevealedStations } = useRevealedStations()
   const [inputText, setInputText] = useState('')
+  const navigate = useNavigate()
 
   const keyPressed = event => {
     if (event.key !== 'Enter') {
@@ -33,6 +34,9 @@ const MapOverlay = () => {
 
   return (
     <div className='map-overlay'>
+      <div className='map-overlay-pane' style={{ marginLeft: 0, marginRight: 'auto' }}>
+        <button onClick={() => navigate('/')}>Etusivu</button>
+      </div>
       <input
         className='guess-input'
         type='text' autoCapitalize='off' autoCorrect='off' autoComplete='off' maxLength={30}
@@ -40,7 +44,7 @@ const MapOverlay = () => {
         onKeyUp={keyPressed}
         placeholder='Kirjoita aseman nimi...'
       />
-      <div className='progress-pane'>
+      <div className='map-overlay-pane'>
         <button onClick={resetRevealedStations}>Tyhjennä</button>
         <span className='score-label'>{revealedStations.length}/{stations.length}</span>
       </div>

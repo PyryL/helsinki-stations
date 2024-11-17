@@ -1,10 +1,8 @@
 import { MapContainer, Marker, Polyline, TileLayer, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
-import { lines } from './data/lines'
-import { stations } from './data/stations'
 import { useRevealedStations } from './revealedStations'
 
-const findBounds = () => {
+const findBounds = stations => {
   const minLat = Math.min(...stations.map(station => station.lat))
   const maxLat = Math.max(...stations.map(station => station.lat))
   const minLon = Math.min(...stations.map(station => station.lon))
@@ -19,7 +17,7 @@ const findBounds = () => {
   ]
 }
 
-const Map = () => {
+const Map = ({ lines, stations }) => {
   const { revealedStations } = useRevealedStations()
 
   const mapOptions = {
@@ -27,7 +25,7 @@ const Map = () => {
     zoom: 12,
     maxZoom: 15,
     minZoom: 10,
-    maxBounds: findBounds(),
+    maxBounds: findBounds(stations),
     zoomControl: false,
   }
 

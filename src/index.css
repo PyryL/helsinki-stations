@@ -45,7 +45,6 @@ body {
   width: 200pt;
   height: 30pt;
   margin-top: 10pt;
-  grid-column: 2 / 3;
   padding: 5pt 15pt;
   box-sizing: border-box;
   text-align: center;
@@ -65,7 +64,7 @@ body {
   background-color: #f47c7e;
 }
 
-.progress-pane {
+.map-overlay-pane {
   width: fit-content;
   height: 30pt;
   padding: 5pt 10pt;
@@ -85,7 +84,7 @@ body {
   font-size: 10pt;
 }
 
-.progress-pane button {
+.map-overlay-pane button {
   background: none;
   border: none;
   box-shadow: 0 0 0 1pt inset lightgray;
@@ -96,7 +95,7 @@ body {
   font-size: inherit;
 }
 
-.progress-pane button:hover {
+.map-overlay-pane button:hover {
   background-color: lightgray;
 }
 
