@@ -33,7 +33,7 @@ const Game = ({ gameMode }) => {
 
   return (
     <div className='map-wrapper'>
-      <Map lines={lines} stations={stations} />
+      <Map lines={lines} stations={stations} gameMode={gameMode} />
       <MapOverlay stations={stations} />
     </div>
   )

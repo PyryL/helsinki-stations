@@ -117,7 +117,7 @@ const handleStopsData = data => {
       lat: latAvg,
       lon: lonAvg,
       name: stopName,
-      icon: 'train', // TODO
+      icon: 'tram',
     })
   }
 

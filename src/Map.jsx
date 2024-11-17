@@ -17,14 +17,19 @@ const findBounds = stations => {
   ]
 }
 
-const Map = ({ lines, stations }) => {
+const findCenter = stations => {
+  const [[minLat, minLon], [maxLat, maxLon]] = findBounds(stations)
+  return [(minLat+maxLat)/2, (minLon+maxLon)/2]
+}
+
+const Map = ({ lines, stations, gameMode }) => {
   const { revealedStations } = useRevealedStations()
 
   const mapOptions = {
-    center: [60.1986580, 24.9334287],
-    zoom: 12,
+    center: findCenter(stations),
+    zoom: gameMode === 'train' ? 11 : 13,
     maxZoom: 15,
-    minZoom: 10,
+    minZoom: gameMode === 'train' ? 10 : 12,
     maxBounds: findBounds(stations),
     zoomControl: false,
   }
