@@ -29,8 +29,8 @@ const Map = ({ lines, stations }) => {
     zoomControl: false,
   }
 
-  const markerIcon = stationType => L.icon({
-    iconUrl: stationType === 'train' ? 'train-station.png' : 'metro-station.png',
+  const markerIcon = iconType => L.icon({
+    iconUrl: `${iconType}-station.png`,
     iconSize: [40, 40],
     iconAnchor: [20, 20],
   })
@@ -53,7 +53,7 @@ const Map = ({ lines, stations }) => {
       />}
 
       {stations.map((station, index) =>
-        <Marker position={[station.lat, station.lon]} icon={markerIcon(station.type)} attribution={osmAttribution} key={index}>
+        <Marker position={[station.lat, station.lon]} icon={markerIcon(station.icon)} attribution={osmAttribution} key={index}>
           {revealedStations.includes(station.name) && <Tooltip permanent direction='bottom' className='map-tooltip'>{station.name}</Tooltip>}
         </Marker>
       )}

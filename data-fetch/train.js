@@ -89,7 +89,7 @@ const handleStationData = data => {
       lat: node.lat,
       lon: node.lon,
       name: node.tags.name,
-      type: node.tags.station === 'subway' ? 'metro' : 'train',
+      icon: node.tags.station === 'subway' ? 'metro' : 'train',
     }]
   })
 
