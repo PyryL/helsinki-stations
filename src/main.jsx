@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import { RevealedStationsProvider } from './revealedStations';
-import App from './App.jsx'
+import Game from './Game.jsx'
 import Menu from './Menu.jsx'
 
 const router = createBrowserRouter([
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/junat',
-    element: <App />,
+    element: <Game />,
   },
 ])
 

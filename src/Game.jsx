@@ -1,7 +1,7 @@
 import Map from './Map'
 import MapOverlay from './MapOverlay'
 
-const App = () => {
+const Game = () => {
   return (
     <div className='map-wrapper'>
       <Map />
@@ -10,4 +10,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Game
