@@ -26,7 +26,8 @@ const findCenter = stations => {
 }
 
 const Map = ({ lines, stations, gameMode }) => {
-  const { revealedStations } = useRevealedStations()
+  const { revealedStations: getRevealedStations } = useRevealedStations()
+  const revealedStations = getRevealedStations(gameMode)
 
   const mapOptions = {
     center: findCenter(stations),

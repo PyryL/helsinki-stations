@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 const correctSound = new Audio('correct.mp3')
 
-const MapOverlay = ({ stations }) => {
+const MapOverlay = ({ stations, gameMode }) => {
   const { revealedStations, revealStation, reset: resetRevealedStations } = useRevealedStations()
   const [inputText, setInputText] = useState('')
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ const MapOverlay = ({ stations }) => {
     const correctStation = stations.find(station => station.name.toLowerCase() === inputText.trim().toLowerCase())
 
     if (correctStation !== undefined) {
-      revealStation(correctStation.name)
+      revealStation(correctStation.name, gameMode)
       setInputText('')
       correctSound.play()
     } else {
@@ -45,8 +45,8 @@ const MapOverlay = ({ stations }) => {
         placeholder='Kirjoita aseman nimi...'
       />
       <div className='map-overlay-pane'>
-        <button onClick={resetRevealedStations}>Tyhjennä</button>
-        <span className='score-label'>{revealedStations.length}/{stations.length}</span>
+        <button onClick={() => resetRevealedStations(gameMode)}>Tyhjennä</button>
+        <span className='score-label'>{revealedStations(gameMode).length}/{stations.length}</span>
       </div>
     </div>
   )
