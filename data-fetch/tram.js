@@ -70,13 +70,12 @@ const handleStopsData = data => {
     'H0409',                    // Tove Janssonin puisto
   ]
 
-  // TODO: siirrä Lautatarhankatu, Velodromi, Fleminginkatu, Eläintarha, Ylioppilastalo
-
   for (const element of data.elements) {
     // filter out temporarily moved stop locations
     if (element.tags.note && element.tags.note.toLowerCase().includes('temporal')) {
       continue
     }
+    // filter out manually chosen unnecessary stops
     if (filteredStops.includes(element.tags.ref)) {
       continue
     }
@@ -91,6 +90,8 @@ const handleStopsData = data => {
   let result = []
 
   for (let [stopName, locations] of Object.entries(stops)) {
+    // TODO: add multiple markers for Velodromi, Fleminginkatu, Eläintarha, Ylioppilastalo
+
     let latAvg = 0, lonAvg = 0
     for (const location of locations) {
       latAvg += location[0]
@@ -99,24 +100,35 @@ const handleStopsData = data => {
     latAvg /= locations.length
     lonAvg /= locations.length
 
-    // rename both of these stops to have the same name
-    // however, keep them in two separate locations on the map
-    if (['Linnanmäki (pohj.)', 'Linnanmäki (etelä)'].includes(stopName)) {
-      stopName = 'Linnanmäki'
-    }
-    if (['Länsiterminaali T1', 'Länsiterminaali T2'].includes(stopName)) {
-      stopName = 'Länsiterminaali'
-    }
-
     // remove metro station indicator from the name
     if (stopName.endsWith(' (M)')) {
       stopName = stopName.substring(0, stopName.length - 4)
     }
 
     result.push({
-      lat: latAvg,
-      lon: lonAvg,
+      locations: [[latAvg, lonAvg]],
       name: stopName,
+      icon: 'tram',
+    })
+  }
+
+  // combine certain stops to only count as one
+  const stopClusters = [
+    {
+      members: ['Linnanmäki (pohj.)', 'Linnanmäki (etelä)'],
+      name: 'Linnanmäki',
+    },
+    {
+      members: ['Länsiterminaali T1', 'Länsiterminaali T2'],
+      name: 'Länsiterminaali',
+    },
+  ]
+  for (const cluster of stopClusters) {
+    const locations = cluster.members.flatMap(member => result.find(resultItem => resultItem.name === member).locations)
+    result = result.filter(resultItem => !cluster.members.includes(resultItem.name))
+    result.push({
+      locations,
+      name: cluster.name,
       icon: 'tram',
     })
   }

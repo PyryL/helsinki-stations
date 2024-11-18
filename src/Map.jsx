@@ -3,10 +3,13 @@ import L from 'leaflet'
 import { useRevealedStations } from './revealedStations'
 
 const findBounds = stations => {
-  const minLat = Math.min(...stations.map(station => station.lat))
-  const maxLat = Math.max(...stations.map(station => station.lat))
-  const minLon = Math.min(...stations.map(station => station.lon))
-  const maxLon = Math.max(...stations.map(station => station.lon))
+  const latitudes = stations.flatMap(station => station.locations.map(coords => coords[0]))
+  const longitudes = stations.flatMap(station => station.locations.map(coords => coords[1]))
+
+  const minLat = Math.min(...latitudes)
+  const maxLat = Math.max(...latitudes)
+  const minLon = Math.min(...longitudes)
+  const maxLon = Math.max(...longitudes)
 
   const latPadding = (maxLat - minLat) / 2
   const lonPadding = (maxLon - minLon) / 2
@@ -57,10 +60,12 @@ const Map = ({ lines, stations, gameMode }) => {
         opacity={0.7}
       />}
 
-      {stations.map((station, index) =>
-        <Marker position={[station.lat, station.lon]} icon={markerIcon(station.icon)} attribution={osmAttribution} key={index}>
-          {revealedStations.includes(station.name) && <Tooltip permanent direction='bottom' className='map-tooltip'>{station.name}</Tooltip>}
-        </Marker>
+      {stations.flatMap((station, index1) =>
+        station.locations.map((coords, index2) =>
+          <Marker position={coords} icon={markerIcon(station.icon)} attribution={osmAttribution} key={`${index1}-${index2}`}>
+            {revealedStations.includes(station.name) && <Tooltip permanent direction='bottom' className='map-tooltip'>{station.name}</Tooltip>}
+          </Marker>
+        )
       )}
 
       {lines.map((linePoints, index) =>
