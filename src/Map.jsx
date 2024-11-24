@@ -32,8 +32,8 @@ const Map = ({ lines, stations, gameMode, allRevealed }) => {
   const mapOptions = {
     center: findCenter(stations),
     zoom: gameMode === 'train' ? 11 : 13,
-    maxZoom: 15,
-    minZoom: gameMode === 'train' ? 10 : 12,
+    maxZoom: gameMode === 'train' ? 14 : 15,
+    minZoom: gameMode === 'train' ? 11 : 13,
     maxBounds: findBounds(stations),
     zoomControl: false,
   }
