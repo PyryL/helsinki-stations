@@ -33,6 +33,10 @@ const Menu = () => {
       </p>
       <button className='menu-start' style={trainStyle} onClick={() => navigate('/junat')}>Lähijunat + Metro</button>
       <button className='menu-start' style={tramStyle} onClick={() => navigate('/ratikat')}>Raitiovaunut</button>
+      <span className='copyright-label'>
+        &copy; 2024 Pyry Lahtinen.
+        Katso <a href='https://github.com/PyryL/helsinki-stations#readme'>lisenssit</a>.
+      </span>
     </div>
   )
 }

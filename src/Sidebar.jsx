@@ -58,6 +58,10 @@ const MapOverlay = ({ stations, gameMode, allRevealed, setAllRevealed }) => {
           <li key={stationName}>{stationName}</li>
         )}
       </ul>
+      <span className='sidebar-copyright'>
+        &copy; 2024 Pyry Lahtinen.
+        Katso <a href='https://github.com/PyryL/helsinki-stations#readme'>lisenssit</a>.
+      </span>
     </div>
   )
 }
