@@ -25,7 +25,7 @@ const findCenter = stations => {
   return [(minLat+maxLat)/2, (minLon+maxLon)/2]
 }
 
-const Map = ({ lines, stations, gameMode }) => {
+const Map = ({ lines, stations, gameMode, allRevealed }) => {
   const { revealedStations: getRevealedStations } = useRevealedStations()
   const revealedStations = getRevealedStations(gameMode)
 
@@ -49,13 +49,13 @@ const Map = ({ lines, stations, gameMode }) => {
     weight: 2,
   }
 
-  const showMap = stations.every(station => revealedStations.some(revealed => station.name === revealed))
+  const allStationsFound = stations.every(station => revealedStations.some(revealed => station.name === revealed))
 
   const osmAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 
   return (
     <MapContainer {...mapOptions} style={{ width: '100%', height: '100%', backgroundColor: '#2c2c2d' }}>
-      {showMap && <TileLayer
+      {(allStationsFound || allRevealed) && <TileLayer
         attribution={osmAttribution}
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         opacity={0.7}
@@ -64,7 +64,9 @@ const Map = ({ lines, stations, gameMode }) => {
       {stations.flatMap((station, index1) =>
         station.locations.map((coords, index2) =>
           <Marker position={coords} icon={markerIcon(station.icon)} attribution={osmAttribution} key={`${index1}-${index2}`}>
-            {revealedStations.includes(station.name) && <Tooltip permanent direction='bottom' className='map-tooltip'>{station.name}</Tooltip>}
+            {(revealedStations.includes(station.name) || allRevealed) &&
+              <Tooltip permanent direction='bottom' className='map-tooltip'>{station.name}</Tooltip>
+            }
           </Marker>
         )
       )}

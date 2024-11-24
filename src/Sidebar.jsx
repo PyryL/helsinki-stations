@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useRevealedStations } from './revealedStations'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import compareStationNames from './compareStationNames'
 
 const correctSound = new Audio('correct.mp3')
 
-const MapOverlay = ({ stations, gameMode }) => {
+const MapOverlay = ({ stations, gameMode, allRevealed, setAllRevealed }) => {
   const { revealedStations, revealStation, reset: resetRevealedStations } = useRevealedStations()
   const [inputText, setInputText] = useState('')
-  const navigate = useNavigate()
 
   const keyPressed = event => {
     if (event.key !== 'Enter') {
@@ -49,7 +48,9 @@ const MapOverlay = ({ stations, gameMode }) => {
       />
       <div className='score-button-container'>
         <button onClick={() => resetRevealedStations(gameMode)} className='score-button'>Nollaa</button>
-        {/* <button onClick={() => { }} className='score-button'>Näytä kaikki</button> */}
+        <button onClick={() => setAllRevealed(x => !x)} className='score-button'>
+          {allRevealed ? 'Piilota' : 'Näytä kaikki'}
+        </button>
       </div>
       <span className='score-label'>{scoreLabel}</span>
       <ul className='station-list'>

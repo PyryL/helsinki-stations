@@ -6,6 +6,7 @@ const dataFiles = import.meta.glob('./data/*.js')
 const Game = ({ gameMode }) => {
   const [lines, setLines] = useState(null)
   const [stations, setStations] = useState(null)
+  const [allRevealed, setAllRevealed] = useState(false)
 
   const loadData = (filePath, varName, setterFunction) => {
     (async () => {
@@ -34,10 +35,10 @@ const Game = ({ gameMode }) => {
 
   return (
     <div className='game-container'>
-      <Sidebar stations={stations} gameMode={gameMode} />
+      <Sidebar stations={stations} gameMode={gameMode} allRevealed={allRevealed} setAllRevealed={setAllRevealed} />
 
       <div className='map-wrapper'>
-        <Map lines={lines} stations={stations} gameMode={gameMode} />
+        <Map lines={lines} stations={stations} gameMode={gameMode} allRevealed={allRevealed} />
       </div>
     </div>
   )
