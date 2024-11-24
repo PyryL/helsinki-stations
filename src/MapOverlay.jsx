@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRevealedStations } from './revealedStations'
 import { useNavigate } from 'react-router-dom'
+import compareStationNames from './compareStationNames'
 
 const correctSound = new Audio('correct.mp3')
 
@@ -14,7 +15,7 @@ const MapOverlay = ({ stations, gameMode }) => {
       return
     }
 
-    const correctStation = stations.find(station => station.name.toLowerCase() === inputText.trim().toLowerCase())
+    const correctStation = stations.find(station => compareStationNames(station.name, inputText))
 
     if (correctStation !== undefined) {
       revealStation(correctStation.name, gameMode)
