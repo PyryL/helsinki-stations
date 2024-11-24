@@ -2,39 +2,55 @@ import { createContext, useContext, useState, useEffect } from 'react'
 
 const RevealedStationsContext = createContext()
 
+const loadStationsFromStorage = () => {
+  const savedData = localStorage.getItem('revealedStations')
+
+  if (savedData === null) {
+    return null
+  }
+
+  let parsedData = JSON.parse(savedData)
+
+  // backward compability
+  if (Array.isArray(parsedData)) {
+    parsedData = { train: parsedData, tram: [] }
+  }
+
+  return parsedData
+}
+
 export const RevealedStationsProvider = ({ children }) => {
-  const [stations, setStations] = useState([])
-  
-  const revealStation = stationName => {
+  const [stations, setStations] = useState(() => {
+    return loadStationsFromStorage() ?? { train: [], tram: [] }
+  })
+
+  const revealStation = (stationName, gameMode) => {
     setStations(oldValue => {
-      if (oldValue.includes(stationName)) {
+      if (oldValue[gameMode].includes(stationName)) {
         return oldValue
       }
-      return oldValue.concat(stationName)
+      return {
+        ...oldValue,
+        [gameMode]: [...oldValue[gameMode], stationName],
+      }
     })
   }
 
-  const reset = () => {
-    setStations([])
+  const reset = gameMode => {
+    setStations(oldValue => {
+      return {
+        ...oldValue,
+        [gameMode]: [],
+      }
+    })
   }
 
   useEffect(() => {
-    const savedData = localStorage.getItem('revealedStations')
-    if (savedData !== null) {
-      setStations(JSON.parse(savedData))
-    }
-  }, [])
-
-  useEffect(() => {
-    if (stations.length === 0) {
-      localStorage.removeItem('revealedStations')
-    } else {
-      localStorage.setItem('revealedStations', JSON.stringify(stations))
-    }
+    localStorage.setItem('revealedStations', JSON.stringify(stations))
   }, [stations])
 
   const providedMethods = {
-    revealedStations: stations,
+    revealedStations: gameMode => stations[gameMode],
     revealStation,
     reset,
   }

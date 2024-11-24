@@ -1,28 +1,31 @@
 import { useEffect, useState } from 'react'
 import Map from './Map'
 import MapOverlay from './MapOverlay'
+const dataFiles = import.meta.glob('./data/*.js')
 
 const Game = ({ gameMode }) => {
   const [lines, setLines] = useState(null)
   const [stations, setStations] = useState(null)
 
-  useEffect(() => {
+  const loadData = (filePath, varName, setterFunction) => {
     (async () => {
       try {
-        const { lines: loadedLines } = await import('./data/lines')
-        setLines(loadedLines)
-      } catch (error) {
-        console.error(error)
-      }
-    })();
-    (async () => {
-      try {
-        const { stations: loadedStations } = await import('./data/stations')
-        setStations(loadedStations)
+        const data = await dataFiles[filePath]()
+        setterFunction(data[varName])
       } catch (error) {
         console.error(error)
       }
     })()
+  }
+
+  useEffect(() => {
+    if (gameMode === 'train') {
+      loadData('./data/lines.js', 'lines', setLines)
+      loadData('./data/stations.js', 'stations', setStations)
+    } else {
+      loadData('./data/tram-lines.js', 'lines', setLines)
+      loadData('./data/tram-stops.js', 'stations', setStations)
+    }
   }, [gameMode])
 
   if (lines === null || stations === null) {
@@ -31,8 +34,8 @@ const Game = ({ gameMode }) => {
 
   return (
     <div className='map-wrapper'>
-      <Map lines={lines} stations={stations} />
-      <MapOverlay stations={stations} />
+      <Map lines={lines} stations={stations} gameMode={gameMode} />
+      <MapOverlay stations={stations} gameMode={gameMode} />
     </div>
   )
 }
