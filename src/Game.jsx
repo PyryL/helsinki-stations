@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Map from './Map'
-import MapOverlay from './MapOverlay'
+import Sidebar from './Sidebar'
 const dataFiles = import.meta.glob('./data/*.js')
 
 const Game = ({ gameMode }) => {
@@ -33,9 +33,12 @@ const Game = ({ gameMode }) => {
   }
 
   return (
-    <div className='map-wrapper'>
-      <Map lines={lines} stations={stations} gameMode={gameMode} />
-      <MapOverlay stations={stations} gameMode={gameMode} />
+    <div className='game-container'>
+      <Sidebar stations={stations} gameMode={gameMode} />
+
+      <div className='map-wrapper'>
+        <Map lines={lines} stations={stations} gameMode={gameMode} />
+      </div>
     </div>
   )
 }

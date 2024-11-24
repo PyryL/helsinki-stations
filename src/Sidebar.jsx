@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRevealedStations } from './revealedStations'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import compareStationNames from './compareStationNames'
 
 const correctSound = new Audio('correct.mp3')
@@ -33,11 +33,13 @@ const MapOverlay = ({ stations, gameMode }) => {
     document.querySelector('.guess-input').focus()
   }, [])
 
+  const scorePercent = revealedStations(gameMode).length / stations.length
+  const scoreStation = gameMode === 'train' ? 'asemaa' : 'pysäkkiä'
+  const scoreLabel = `${revealedStations(gameMode).length} / ${stations.length} ${scoreStation} (${(100*scorePercent).toFixed(0)}%)`
+
   return (
-    <div className='map-overlay'>
-      <div className='map-overlay-pane' style={{ marginLeft: 0, marginRight: 'auto' }}>
-        <button onClick={() => navigate('/')}>Etusivu</button>
-      </div>
+    <div className='game-sidebar'>
+      <Link to='/' className='frontpage-link'>&larr; Etusivu</Link>
       <input
         className='guess-input'
         type='text' autoCapitalize='off' autoCorrect='off' autoComplete='off' maxLength={30}
@@ -45,10 +47,16 @@ const MapOverlay = ({ stations, gameMode }) => {
         onKeyUp={keyPressed}
         placeholder='Kirjoita aseman nimi...'
       />
-      <div className='map-overlay-pane'>
-        <button onClick={() => resetRevealedStations(gameMode)}>Tyhjennä</button>
-        <span className='score-label'>{revealedStations(gameMode).length}/{stations.length}</span>
+      <div className='score-button-container'>
+        <button onClick={() => resetRevealedStations(gameMode)} className='score-button'>Nollaa</button>
+        {/* <button onClick={() => { }} className='score-button'>Näytä kaikki</button> */}
       </div>
+      <span className='score-label'>{scoreLabel}</span>
+      <ul className='station-list'>
+        {revealedStations(gameMode).map(stationName =>
+          <li key={stationName}>{stationName}</li>
+        )}
+      </ul>
     </div>
   )
 }
