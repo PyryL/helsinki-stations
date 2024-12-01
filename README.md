@@ -1,5 +1,20 @@
 # Helsinki Stations
 
+## Map tiles
+
+To re-render the map tiles, you need to first install
+[canvas](https://www.npmjs.com/package/canvas) package:
+
+```sh
+npm install --no-save canvas
+```
+
+Then render the tiles by running
+
+```sh
+node data-fetch/tile-maker.js
+```
+
 ## Third-Party Content
 
 All map data is copyright **&copy; OpenStreetMap contributors** and used under
