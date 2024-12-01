@@ -93,6 +93,8 @@ body {
   font-size: 1em;
   border: none;
   border-radius: 15pt;
+  flex-grow: 0;
+  flex-shrink: 0;
   transition: background-color .1s;
 }
 
