@@ -62,7 +62,7 @@ const Map = ({ lines, stations, gameMode, allRevealed }) => {
       />}
 
       {(gameMode === 'tram' && !allStationsFound && !allRevealed) &&
-        <TileLayer attribution={osmAttribution} url='/public/tiles/{z}/{x}/{y}.png' />
+        <TileLayer attribution={osmAttribution} url='/tiles/{z}/{x}/{y}.png' />
       }
 
       {stations.flatMap((station, index1) =>
