@@ -61,6 +61,10 @@ const Map = ({ lines, stations, gameMode, allRevealed }) => {
         opacity={0.7}
       />}
 
+      {(gameMode === 'tram' && !allStationsFound && !allRevealed) &&
+        <TileLayer attribution={osmAttribution} url='/public/tiles/{z}/{x}/{y}.png' />
+      }
+
       {stations.flatMap((station, index1) =>
         station.locations.map((coords, index2) =>
           <Marker position={coords} icon={markerIcon(station.icon)} attribution={osmAttribution} key={`${index1}-${index2}`}>
