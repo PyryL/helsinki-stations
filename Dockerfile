@@ -20,7 +20,7 @@ FROM node:22-alpine
 
 WORKDIR /usr/src/app
 
-RUN npm install --no-save --no-fund http-server@14
+RUN npm install --no-save --no-fund serve@14
 
 COPY --from=build /usr/src/app/dist/ dist/
 
@@ -29,4 +29,4 @@ USER node
 EXPOSE 8080
 
 # TODO: tls
-CMD [ "npx", "http-server", "dist/", "--gzip", "--utc", "--log-ip", "--no-dotfiles", "-d", "false" ]
+CMD [ "npx", "serve", "dist/", "-p", "8080", "--no-port-switching", "--cors" ]

@@ -1,0 +1,12 @@
+{
+    "rewrites": [
+        {
+            "source": "/ratikat",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/junat",
+            "destination": "/index.html"
+        }
+    ]
+}
