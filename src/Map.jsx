@@ -68,8 +68,8 @@ const Map = ({ lines, stations, gameMode, allRevealed }) => {
       {stations.flatMap((station, index1) =>
         station.locations.map((coords, index2) =>
           <Marker position={coords} icon={markerIcon(station.icon)} attribution={osmAttribution} key={`${index1}-${index2}`}>
-            {(revealedStations.includes(station.name) || allRevealed) &&
-              <Tooltip permanent direction='bottom' className='map-tooltip'>{station.name}</Tooltip>
+            {(revealedStations.includes(station.names[0]) || allRevealed) &&
+              <Tooltip permanent direction='bottom' className='map-tooltip'>{station.names[0]}</Tooltip>
             }
           </Marker>
         )

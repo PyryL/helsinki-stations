@@ -14,10 +14,10 @@ const MapOverlay = ({ stations, gameMode, allRevealed, setAllRevealed }) => {
       return
     }
 
-    const correctStation = stations.find(station => compareStationNames(station.name, inputText))
+    const correctStation = stations.find(station => station.names.some(name => compareStationNames(name, inputText)))
 
     if (correctStation !== undefined) {
-      revealStation(correctStation.name, gameMode)
+      revealStation(correctStation.names[0], gameMode)
       setInputText('')
       correctSound.play()
     } else {
