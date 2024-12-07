@@ -107,7 +107,7 @@ const handleStopsData = data => {
 
     result.push({
       locations: [[latAvg, lonAvg]],
-      name: stopName,
+      names: [stopName],
       icon: 'tram',
     })
   }
@@ -124,11 +124,21 @@ const handleStopsData = data => {
     },
   ]
   for (const cluster of stopClusters) {
-    const locations = cluster.members.flatMap(member => result.find(resultItem => resultItem.name === member).locations)
-    result = result.filter(resultItem => !cluster.members.includes(resultItem.name))
+    let locations = []
+
+    let i = 0
+    while (i < result.length) {
+      if (cluster.members.some(member => result[i].names.includes(member))) {
+        locations.push(...result[i].locations)
+        result.splice(i, 1)
+      } else {
+        i++
+      }
+    }
+
     result.push({
       locations,
-      name: cluster.name,
+      names: [cluster.name],
       icon: 'tram',
     })
   }

@@ -87,7 +87,7 @@ const handleStationData = data => {
     }
     return [{
       locations: [[node.lat, node.lon]],
-      name: node.tags.name,
+      names: [node.tags.name],
       icon: node.tags.station === 'subway' ? 'metro' : 'train',
     }]
   })
