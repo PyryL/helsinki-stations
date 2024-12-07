@@ -85,9 +85,13 @@ const handleStationData = data => {
     if (node.tags.name.toLowerCase().includes('autojuna')) {
       return []
     }
+    let names = [node.tags.name]
+    if (node.tags.name === 'Helsinki') {
+      names = ['Helsinki', 'Helsingin päärautatieasema', 'Päärautatieasema']
+    }
     return [{
       locations: [[node.lat, node.lon]],
-      names: [node.tags.name],
+      names,
       icon: node.tags.station === 'subway' ? 'metro' : 'train',
     }]
   })
