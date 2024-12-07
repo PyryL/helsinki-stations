@@ -116,11 +116,11 @@ const handleStopsData = data => {
   const stopClusters = [
     {
       members: ['Linnanmäki (pohj.)', 'Linnanmäki (etelä)'],
-      name: 'Linnanmäki',
+      names: ['Linnanmäki', 'Linnanmäki pohjoinen', 'Linnanmäki pohj', 'Linnanmäki etelä'],
     },
     {
       members: ['Länsiterminaali T1', 'Länsiterminaali T2'],
-      name: 'Länsiterminaali',
+      names: ['Länsiterminaali', 'Länsiterminaali T1', 'Länsiterminaali T2'],
     },
   ]
   for (const cluster of stopClusters) {
@@ -138,7 +138,7 @@ const handleStopsData = data => {
 
     result.push({
       locations,
-      names: [cluster.name],
+      names: cluster.names,
       icon: 'tram',
     })
   }
